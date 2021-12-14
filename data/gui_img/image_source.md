@@ -1,4 +1,4 @@
-#Icon source:
+# Image source:
 
 https://www.iconfinder.com/icons/925808/wifi_icon by Andreas Larsen
 
