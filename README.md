@@ -10,15 +10,15 @@ Drone Hacking Tool is a GUI tool that works with a USB Wifi adapter and HackRF O
 
 ### Software
 
-#### Operating System selection:
+#### Operating System selection
 
 Due to Robot Operating System (ROS) Kinetic primarily targeting Ubuntu 16.04, so we advise using Ubuntu 16.04 for running this tool.
   
-#### Install ROS:
+#### Install ROS
 
 Before you start using this tool, you must install Robot Operating System (ROS) Kinetic on your Ubuntu. For more information, please [click here](https://wiki.ros.org/kinetic).
 
-#### Install ROS driver:
+#### Install ROS driver
   
 Please install the driver for ROS to communicate with the drone. The driver called [tello_driver](https://github.com/appie-17/tello_driver) and [bebop_autonomy](https://github.com/AutonomyLab/bebop_autonomy). In this tool, we tested DJI Tello and Parrot Bebop 2 works with this tool, users can use this tool for takeoff, landing and viewing the live camera content.
   
