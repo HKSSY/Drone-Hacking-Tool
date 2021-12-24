@@ -24,6 +24,8 @@ Please install the driver for ROS to communicate with the drone. The driver call
   
 You may also install another ROS driver for hacking other drones, but you need to edit the source code and we cannot promise it can work with this tool.
 
+#### Install Aircrack –ng suite
+
 ### Hardware
 
 #### HackRF One
