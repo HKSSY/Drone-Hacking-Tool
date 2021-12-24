@@ -28,4 +28,8 @@ You may also install another ROS driver for hacking other drones, but you need t
 
 #### HackRF One
 
+HackRF One from Great Scott Gadgets is a Software Defined Radio peripheral capable of transmission or reception of radio signals from 1 MHz to 6 GHz. For more information, please visit the [official website](https://greatscottgadgets.com/hackrf/one/).
+
+In this tool, we are using HackRF One to perform a fake GPS attack to force the drone to land or fly away from the fake GPS signal covered area.
+
 #### USB Wifi adapter
