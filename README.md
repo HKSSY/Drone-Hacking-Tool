@@ -67,9 +67,9 @@ You may be using a laptop or virtual machine to run this tool, but the performan
 
 ## Development Team
 
-* SHEK Siu Yin
-* KAN Hung Wing
-* YUEN Yat Hong
+* [HKSSY](https://github.com/HKSSY)
+* Sam KAN
+* Michael Yuen
 
 ## Special thanks with
 
