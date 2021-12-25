@@ -35,6 +35,10 @@ You may also install another ROS driver for hacking other drones, but you need t
 #### Install Aircrack–ng suite
   
 [Aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) is a security software related to 802.11 standard wireless network analysis. Our tool relies on the Aircrack-ng suite for wireless network detection, capturing four-way handshake packets, and implementing a Wi-Fi deauthentication attack.
+  
+#### Install hackrf utility 
+
+This utility is used to communicate with your HackRF One.
 
 #### Python version and installed modules
 
