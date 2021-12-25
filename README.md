@@ -40,9 +40,9 @@ You may also install another ROS driver for hacking other drones, but you need t
 
 This tool is built on Python 3.8 and works with the following modules:
 
-* Tkinter GUI interface
-* pandas analysis CVS data
-* paramiko SSH connection
+* Tkinter - GUI interface
+* pandas - analysis CVS data
+* paramiko - SSH connection
 
 This tool is build on Python 3.8
 
