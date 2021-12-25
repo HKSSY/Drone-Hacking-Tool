@@ -8,6 +8,12 @@ Drone Hacking Tool is a GUI tool that works with a USB Wifi adapter and HackRF O
 
 ## Overview
   
+Drones, as a high mobility item that can be carried around easily and launched, are becoming cheaper and more popular among the public, they can be seen almost anywhere nowadays.
+ 
+However, the drone built-in flying cameras could use for illegal usage like candid photos on private property. This shows drones clearly present risks to public safety and personal privacy.
+
+Therefore, we are working on using wireless connection methods (Wi-Fi, GPS) to hack it and take over. In this project, our goal is to capture drones to stop users with malicious intent for proof of concept and a sense of accomplishment.
+  
 ## Before to start
 
 ### Software
