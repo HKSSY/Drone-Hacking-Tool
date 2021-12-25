@@ -60,3 +60,7 @@ In this tool, we are using HackRF One to perform a fake GPS attack to force the 
 #### USB Wifi adapter
 
 NOT all Wi-Fi adapter is compatible with the Aircrack-ng suite. Please [read](https://www.aircrack-ng.org/doku.php?id=compatible_cards) this tutorial to help you select a compatible Wi-Fi adapter.
+
+#### The Remote server (optional)
+  
+You may be using a laptop or virtual machine to run this tool, but the performance of most of the laptops is not enough for cracking WiFi passwords. So, this tool can use an SSH connection to the remote server with the powerful GPU performance and use hashcat to reduce the time for cracking passwords.
