@@ -58,3 +58,5 @@ HackRF One from Great Scott Gadgets is a Software Defined Radio peripheral capab
 In this tool, we are using HackRF One to perform a fake GPS attack to force the drone to land or fly away from the fake GPS signal covered area.
 
 #### USB Wifi adapter
+
+NOT all Wi-Fi adapter is compatible with the Aircrack-ng suite. Please [read](https://www.aircrack-ng.org/doku.php?id=compatible_cards) this tutorial to help you select a compatible Wi-Fi adapter.
