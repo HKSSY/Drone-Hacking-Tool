@@ -64,3 +64,14 @@ NOT all Wi-Fi adapter is compatible with the Aircrack-ng suite. Please [read](ht
 #### The Remote server (optional)
   
 You may be using a laptop or virtual machine to run this tool, but the performance of most of the laptops is not enough for cracking WiFi passwords. So, this tool can use an SSH connection to the remote server with the powerful GPU performance and use hashcat to reduce the time for cracking passwords.
+
+## Development Team
+
+* SHEK Siu Yin
+* KAN Hung Wing
+* YUEN Yat Hong
+
+## Special thanks with
+
+* [BBQHK](https://github.com/BBQHK)
+* [ScodeC-kk](https://github.com/ScodeC-kk)
