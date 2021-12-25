@@ -33,6 +33,18 @@ Please install the driver for ROS to communicate with the drone. The driver call
 You may also install another ROS driver for hacking other drones, but you need to edit the source code and we cannot promise it can work with this tool.
 
 #### Install Aircrack–ng suite
+  
+[Aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) is a security software related to 802.11 standard wireless network analysis. Our tool relies on the Aircrack-ng suite for wireless network detection, capturing four-way handshake packets, and implementing a Wi-Fi deauthentication attack.
+
+#### Python version and installed modules
+
+This tool is built on Python 3.8 and works with the following modules:
+
+Tkinter - GUI interface
+pandas - analysis CVS data
+paramiko - SSH connection
+
+This tool is build on Python 3.8
 
 ### Hardware
 
