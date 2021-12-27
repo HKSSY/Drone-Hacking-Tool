@@ -67,6 +67,10 @@ You may be using a laptop or virtual machine to run this tool, but the performan
 
 ## Launch the tool
 
+```
+python3 drone_hacking_tool.py
+```
+  
 ## User interface
 
 ## Development team
