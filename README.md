@@ -69,7 +69,7 @@ You may be using a laptop or virtual machine to run this tool, but the performan
 
 ## User interface
 
-## Development Team
+## Development team
 
 * [HKSSY](https://github.com/HKSSY)
 * Sam KAN
