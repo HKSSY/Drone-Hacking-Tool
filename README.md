@@ -67,10 +67,11 @@ You may be using a laptop or virtual machine to run this tool, but the performan
 
 ## Launch the tool
 
+For launching the tool, please type in the following command on the terminal:
 ```
 python3 drone_hacking_tool.py
 ```
-  
+
 ## User interface
 
 ## Development team
