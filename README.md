@@ -74,7 +74,7 @@ python3 drone_hacking_tool.py
 
 ## User interface
 
-<img src="https://raw.githubusercontent.com/HKSSY/Drone-Hacking-Tool/main/data/gui_demo/homepage.png" width="80%"></img>
+<img src="https://raw.githubusercontent.com/HKSSY/Drone-Hacking-Tool/main/data/gui_demo/homepage.png" width="40%"></img>
 
 ## Development team
 
