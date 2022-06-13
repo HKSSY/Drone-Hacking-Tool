@@ -114,7 +114,7 @@ class StartPage(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Thank you for using this programe.\nTo start, please select one option on the page.\n\nWi-Fi base drone: Exploit Wi-Fi attack to get the drone control rights.\n\nRF base drone: Using fake GPS signal to hijack the drone."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -199,7 +199,7 @@ class SelectInterface(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Please ready your Wi-Fi adapter, and make sure your adapter supports 'monitor' mode.\n\nIf you are connected to your Wi-Fi adapter correctly, you can see the adapter name on the screen."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
     
@@ -355,7 +355,7 @@ class APDisplay(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "To continue, please select one Wi-Fi access point.\n\nThe program will scan the nearby Wi-Fi access point. If the Wi-Fi network is broadcast from the drone, and match with the 'drone manufacturer list' files, the program will highlight that Wi-Fi access point."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -668,7 +668,7 @@ class GetSelectedAPClientINFO(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "To continue, please select one client for the attack.\n\nThe program will scan the client(s) on your selected Wi-Fi access point. If there have only one client find on the Wi-Fi access point, the program will select that client automatically. Otherwise, you need to select which clients you want to attack."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
     
@@ -890,7 +890,7 @@ class WifiAttack(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Attack drone based on different cases.\n\nPlease follow the instruction from the program."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -1747,7 +1747,7 @@ class RemoteServerConnect(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "Crack the password through the remote server to improve the effectiveness of cracking a password.\n\nTo enjoy the faster password cracking effectiveness, please type in the remote server login information."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -2190,7 +2190,7 @@ class DroneControl(tk.Frame):
 
     def load_camera(self): #Turn on drone camera
         try:
-            if "Parrot Sa - Bebop 2" in matched_manufacturer: #Bebop drone
+            if "Parrot Sa@Bebop 2" in matched_manufacturer: #Bebop drone
                 turn_on_bebop_driver_camera = "gnome-terminal --geometry=1x1 --working-directory=myfolder -x bash -c 'source bebop_ws/devel/setup.bash; roslaunch bebop_tools bebop_nodelet_iv.launch'"
                 subprocess.Popen(turn_on_bebop_driver_camera, stdout = subprocess.PIPE, shell = True)
                 time.sleep(12.0)
@@ -2198,7 +2198,7 @@ class DroneControl(tk.Frame):
                 self.takeoff_button.config(state = "normal")
                 self.landing_button.config(state = "normal")
                 self.info_label.config(text = "Done.")
-            elif "Sz Dji Technology Co.,Ltd - Tello" in matched_manufacturer: #Tello drone
+            elif "Sz Dji Technology Co.,Ltd@Tello" in matched_manufacturer: #Tello drone
                 turn_on_tello_driver = "gnome-terminal --geometry=1x1 --working-directory=myfolder -x bash -c 'source tello_ws/devel/setup.bash; roslaunch tello_driver tello_node.launch'"
                 turn_on_tello_camera =  "gnome-terminal --geometry=1x1 --working-directory=myfolder -x bash -c 'source tello_ws/devel/setup.bash; rosrun rqt_image_view rqt_image_view /tello/image_raw/h264'"
                 subprocess.Popen(turn_on_tello_driver, stdout = subprocess.PIPE, shell = True)
@@ -2209,10 +2209,11 @@ class DroneControl(tk.Frame):
                 self.takeoff_button.config(state = "normal")
                 self.landing_button.config(state = "normal")
                 self.info_label.config(text = "Done.")
-            elif "Sz Dji Technology Co.,Ltd - Spark" in matched_manufacturer: #Spark drone
+            elif "Sz Dji Technology Co.,Ltd@Spark" in matched_manufacturer: #Spark drone
+                self.info_label.config(text = "Device Not Supported.")
                 self.takeoff_button.config(state = "disable")
                 self.landing_button.config(state = "disable")
-                spark_message = "To continue, please use the Android emulator and download 'DJI GO 4' application.\n\nThe connect password of the drone is: " + user_provide_password
+                spark_message = "To continue, please use the Android emulator and download 'DJI GO 4' application."
                 if messagebox.showerror("Device Not Supported", spark_message):
                     threading.Thread(target = self.destroy_drone_attack_gui).start()
             else:
@@ -2227,10 +2228,10 @@ class DroneControl(tk.Frame):
 
     def takeoff(self): #Drone takeoff
         try:
-            if "Parrot Sa - Bebop 2" in matched_manufacturer: #Bebop drone
+            if "Parrot Sa@Bebop 2" in matched_manufacturer: #Bebop drone
                 takeoff_bebop = "/bin/bash ~/bebop_ws/devel/setup.bash;rostopic pub bebop/takeoff std_msgs/Empty"
                 subprocess.Popen(takeoff_bebop, stdout = subprocess.PIPE, shell = True)
-            elif "Sz Dji Technology Co.,Ltd - Tello" in matched_manufacturer: #Tello drone
+            elif "Sz Dji Technology Co.,Ltd@Tello" in matched_manufacturer: #Tello drone
                 takeoff_tello = "/bin/bash ~/tello_ws/devel/setup.bash; rostopic pub tello/takeoff std_msgs/Empty"
                 subprocess.Popen(takeoff_tello, stdout = subprocess.PIPE, shell = True)
             else:
@@ -2240,10 +2241,10 @@ class DroneControl(tk.Frame):
 
     def landing(self): #Drone landing
         try:
-            if "Parrot Sa - Bebop 2" in matched_manufacturer: #Bebop drone
+            if "Parrot Sa@Bebop 2" in matched_manufacturer: #Bebop drone
                 landing_bebop = "/bin/bash ~/bebop_ws/devel/setup.bash;rostopic pub bebop/land std_msgs/Empty"
                 subprocess.Popen(landing_bebop, stdout = subprocess.PIPE, shell = True)
-            elif "Sz Dji Technology Co.,Ltd - Tello" in matched_manufacturer: #Tello drone
+            elif "Sz Dji Technology Co.,Ltd@Tello" in matched_manufacturer: #Tello drone
                 landing_tello = "/bin/bash ~/tello_ws/devel/setup.bash; rostopic pub tello/land std_msgs/Empty"
                 subprocess.Popen(landing_tello, stdout = subprocess.PIPE, shell = True)
             else:
@@ -2256,7 +2257,7 @@ class DroneControl(tk.Frame):
         self.restart_camera_button.config(state = "disable") 
         self.takeoff_button.config(state = "disable")
         self.landing_button.config(state = "disable")
-        if "Sz Dji Technology Co.,Ltd" in matched_manufacturer:
+        if "Sz Dji Technology Co.,Ltd@Tello" in matched_manufacturer:
             try:
                 subprocess.Popen("ps aux | grep 'rqt_image_view/rqt_image_view /tello/image_raw/h264' | awk '{print $2}' | xargs sudo kill -9", stdout = subprocess.PIPE, shell = True) #Close camera
                 time.sleep(0.5)
@@ -2280,7 +2281,7 @@ class DroneControl(tk.Frame):
         self.landing_button.config(state = "disable")
         self.restart_camera_button.config(state = "disable")
         self.bace_to_homepage_button.config(state = "disable")
-        if "Sz Dji Technology Co.,Ltd" in matched_manufacturer:
+        if "Sz Dji Technology Co.,Ltd@Tello" in matched_manufacturer:
             try:
                 subprocess.Popen("ps aux | grep 'rqt_image_view/rqt_image_view /tello/image_raw/h264' | awk '{print $2}' | xargs sudo kill -9", stdout = subprocess.PIPE, shell = True) #Close camera
                 time.sleep(0.5)
@@ -2386,7 +2387,7 @@ class FindHackrfDevice(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "To start, please ready your HackRF One and install 'hackrf' tools.\n\nIf you are connected to your HackRF One correctly, you can see the device information on the screen."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
 
@@ -2643,7 +2644,7 @@ class RFLocationSelect(tk.Frame):
         help_tool.add_command(label = "Page guide", command = lambda: messagebox.showinfo("Page Guide",
                                     "For the fake GPS function, please select one location or select 'Customize' to type your GPS coordinate on the page.\n\nAfter that, press the 'Start attack' button to start the transmission of the fake GPS signal until you press the 'Stop attack' button."))
         help_tool.add_command(label = "About", command = lambda: messagebox.showinfo("Drone Hacking Tool",
-                                    "Code name: Barbary lion\nVersion: 1.1.1.110\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
+                                    "Code name: Barbary lion\nVersion: 1.1.2.111\n\nGroup member:\nSam KAN\nMichael YUEN\nDicky SHEK"))
         menubar.add_cascade(label = "Help", menu = help_tool)
         return menubar
     
@@ -3028,7 +3029,7 @@ if __name__ == "__main__":
         app.iconphoto(True, tk.PhotoImage(file = current_path + "/data/gui_img/drone_main_icon.png"))
     except:
         pass
-    print(" P100      CEEFAX 1    100             Web 29 Dec 22:03/12 ")
+    print(" P100      CEEFAX 1    100             Mon 13 Jun 19:27/35 ")
     print(" █████████████████          ████████████                   ")
     print(" ████████  █████ █            █        █                   ")
     print(" ████████  █████ █ ██████████ █  ███████ █████████████████ ")
@@ -3041,7 +3042,7 @@ if __name__ == "__main__":
     print(" █████████████████ █  █████ █ ██████████ █  ████  ████████ ")
     print("                   █  █████ █            █  ████  ████████ ")
     print("                 ████████████          ███████████████████ ")
-    print("                      Ver: 1.1.1.110                       ")
+    print("                      Ver: 1.1.2.111                       ")
     print("       ░░░░░░░░ ░░░░░░░░ ░░░░░░░░ ░░░░░░░░ ░░░░░░░░        ")
     print("       ░    ░░░ ░     ░░ ░      ░ ░ ░░░░ ░ ░      ░        ")
     print("       ░ ░░░ ░░ ░ ░░░░ ░ ░ ░░░░ ░ ░  ░░░ ░ ░ ░░░░░░        ")
