@@ -1,6 +1,6 @@
 <p align="center"><img src="https://raw.githubusercontent.com/HKSSY/Drone-Hacking-Tool/main/data/gui_img/drone_main_icon.png">
 
-# Drone-Hacking-Tool
+# Drone Hacking Tool
 
 Drone Hacking Tool is a GUI tool that works with a USB Wifi adapter and HackRF One for hacking drones.
 
