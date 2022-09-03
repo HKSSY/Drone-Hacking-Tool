@@ -72,6 +72,12 @@ For launching the tool, please type in the following command on the terminal:
 python3 drone_hacking_tool.py
 ```
 
+## Video demonstration
+
+The video demonstration only included no-password WiFi drones. However, this tool provides other methods for drone hacking, not included in this video. Please click [https://youtu.be/GhxaEewu4V8](https://youtu.be/GhxaEewu4V8).
+
+To better understand what's going on, please turn on the CC subtitle.
+
 ## User interface
 
 <img src="https://raw.githubusercontent.com/HKSSY/Drone-Hacking-Tool/main/data/gui_demo/homepage.png" width="40%"></img>
