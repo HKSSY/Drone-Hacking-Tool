@@ -100,9 +100,9 @@ To better understand what's going on, please turn on the CC subtitle.
 
 * [HKSSY](https://github.com/HKSSY)
 * Sam KAN
-* Michael Yuen
+* [Michael Yuen](https://github.com/M1chaelpH)
 
 ## Special thanks with
 
-* [BBQHK](https://github.com/BBQHK)
+* [Oscar Ng](https://github.com/BBQHK)
 * [ScodeC-kk](https://github.com/ScodeC-kk)
