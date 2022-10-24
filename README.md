@@ -104,5 +104,5 @@ To better understand what's going on, please turn on the CC subtitle.
 
 ## Special thanks with
 
-* [Oscar Ng](https://github.com/BBQHK) He is god
+* [Oscar Ng](https://github.com/BBQHK)
 * [ScodeC-kk](https://github.com/ScodeC-kk)
