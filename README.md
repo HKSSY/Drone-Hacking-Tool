@@ -98,8 +98,8 @@ To better understand what's going on, please turn on the CC subtitle.
 
 ## Development team
 
-* [HKSSY](https://github.com/HKSSY)
-* Sam KAN
+* [Dicky Shek](https://github.com/HKSSY)
+* [Sam Kan](https://github.com/SamKHW)
 * [Michael Yuen](https://github.com/M1chaelpH)
 
 ## Special thanks with
